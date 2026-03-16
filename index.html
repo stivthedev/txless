@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>$TAXLESS</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@vercel/geist@1.0.0/style.css">
+
+    <style>
+        :root {
+            --bg: #fff9f6;
+            --accent: #ffb997;
+            --accent2: #ff9966;
+            --text: #2a2a2a;
+            --muted: #000000;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: "Geist", system-ui, sans-serif;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        /* NAV */
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 28px 40px;
+        }
+
+        .logo {
+            font-weight: 700;
+            letter-spacing: 3px;
+        }
+
+        .menu {
+            display: flex;
+            gap: 14px;
+        }
+
+        .menu a {
+            text-decoration: none;
+            font-family: "Geist Mono", monospace;
+            font-size: 14px;
+            color: var(--text);
+            border: 1px solid #000000;
+            padding: 8px 16px;
+            border-radius: 6px;
+            transition: .2s;
+        }
+
+        .menu a:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* HERO */
+
+        .hero {
+            max-width: 1000px;
+            margin: auto;
+            padding: 80px 40px;
+            text-align: center;
+        }
+
+        .hero img {
+            width: 200px;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.15));
+        }
+
+        .hero h1 {
+            font-size: clamp(4rem, 12vw, 8rem);
+            background: linear-gradient(45deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-sub {
+            margin-top: 15px;
+            font-family: "Geist Mono", monospace;
+            color: var(--muted);
+        }
+
+        /* statement */
+
+        .statement-card {
+            margin-top: 60px;
+            background: white;
+            padding: 40px;
+            border-radius: 18px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            display: inline-block;
+        }
+
+        .statement {
+            font-size: 34px;
+            font-weight: 700;
+        }
+
+        .statement-line {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            font-size: 34px;
+        }
+
+        .statement strong {
+            display: block;
+            margin-top: 14px;
+            font-size: 36px;
+            color: var(--accent);
+        }
+
+        /* ticker */
+
+        .ticker {
+            margin-top: 80px;
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            color: white;
+            padding: 14px 0;
+            overflow: hidden;
+        }
+
+        .ticker span {
+            white-space: nowrap;
+            display: inline-block;
+            padding-left: 100%;
+            animation: scroll 20s linear infinite;
+            font-family: "Geist Mono", monospace;
+        }
+
+        @keyframes scroll {
+            0% {
+                transform: translateX(0)
+            }
+
+            100% {
+                transform: translateX(-100%)
+            }
+        }
+
+        /* cards */
+
+        .grid {
+            max-width: 1000px;
+            margin: 120px auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 30px;
+            padding: 0 40px;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+        }
+
+        .card h3 {
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            font-family: "Geist Mono", monospace;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        /* detector */
+
+        .detector {
+            max-width: 900px;
+            margin: 120px auto;
+            text-align: center;
+            padding: 0 40px;
+        }
+
+        .meter {
+            height: 30px;
+            background: #eee;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+
+        .meter-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            transition: width 1s;
+        }
+
+        /* calc */
+
+        .tax-calc {
+            max-width: 700px;
+            margin: 120px auto;
+            text-align: center;
+        }
+
+        .calc-box {
+            background: white;
+            padding: 40px;
+            border-radius: 18px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        input {
+            padding: 12px 16px;
+            border-radius: 8px;
+            border: 1px solid #eee;
+            margin-top: 10px;
+            font-size: 16px;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(45deg, var(--accent), var(--accent2));
+            color: white;
+            cursor: pointer;
+            font-family: "Geist Mono", monospace;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-family: "Geist Mono", monospace;
+            color: var(--muted);
+        }
+
+        /* money */
+
+        .money {
+            position: absolute;
+            font-size: 20px;
+            animation: moneyFly 2s forwards;
+        }
+
+        @keyframes moneyFly {
+
+            0% {
+                opacity: 1;
+                transform: translateY(0)
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateY(-120px)
+            }
+
+        }
+
+        /* manifesto */
+
+        .manifesto {
+            max-width: 900px;
+            margin: 140px auto;
+            padding: 0 40px;
+            text-align: center;
+        }
+
+        .manifesto-card {
+            background: white;
+            padding: 60px;
+            border-radius: 22px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .manifesto h2 {
+            font-size: 42px;
+            margin-bottom: 30px;
+        }
+
+        .manifesto p {
+            font-size: 22px;
+            line-height: 1.6;
+        }
+
+        .final {
+            margin-top: 30px;
+            font-size: 46px;
+            color: var(--accent);
+        }
+
+        /* twitter */
+
+        .twitter {
+            margin-top: 120px;
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .twitter h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .twitter-btn {
+            display: inline-block;
+            padding: 14px 28px;
+            border: 2px solid var(--accent);
+            border-radius: 10px;
+            text-decoration: none;
+            font-family: "Geist Mono", monospace;
+            color: var(--accent);
+            transition: .2s;
+        }
+
+        .twitter-btn:hover {
+            background: var(--accent);
+            color: white;
+        }
+
+        /* footer */
+
+        footer {
+            text-align: center;
+            padding: 60px;
+            font-family: "Geist Mono", monospace;
+            color: var(--muted);
+        }
+
+        @media(max-width:900px) {
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .statement-line {
+                flex-direction: column;
+                gap: 6px;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+
+        <div class="logo">TAXLESS</div>
+
+        <div class="menu">
+            <a href="#why">WHY</a>
+            <a href="#manifest">MANIFESTO</a>
+            <a href="#">Join Twitter</a>
+        </div>
+
+    </header>
+
+    <section class="hero">
+
+        <img src="logo.jpg">
+
+        <h1>$TAXLESS</h1>
+
+        <p class="hero-sub">
+            profit culture / p's / bags / gains
+        </p>
+
+        <div class="statement-card">
+
+            <div class="statement">
+
+                <div class="statement-line">
+                    <span>My $10</span>
+                    <span>•</span>
+                    <span>My profit</span>
+                    <span>•</span>
+                    <span>My p's</span>
+                </div>
+
+                <strong>No tax for me.</strong>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <div class="ticker">
+        <span>
+            crypto profit • taxman watching • bags secured • my trade my p's • taxless life • keep your gains •
+        </span>
+    </div>
+
+    <section class="grid" id="why">
+
+        <div class="card">
+            <h3>The System</h3>
+            <p>
+                You take the risk.<br>
+                You buy the dip.<br>
+                You hold through chaos.<br><br>
+                Then someone wants a percentage.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>The Trader</h3>
+            <p>
+                Charts move.<br>
+                Markets panic.<br>
+                Profits appear.<br><br>
+                And suddenly the taxman notices.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>$TAXLESS</h3>
+            <p>
+                My trade.<br>
+                My bag.<br>
+                My p's.<br><br>
+                Taxless.
+            </p>
+        </div>
+
+    </section>
+
+    <section class="detector">
+
+        <h2>Taxman Detector</h2>
+
+        <p style="font-family:monospace;color:#777">
+            scanning global profit activity
+        </p>
+
+        <div class="meter">
+            <div class="meter-fill" id="taxMeter"></div>
+        </div>
+
+    </section>
+
+    <section class="tax-calc">
+
+        <h2>Tax Calculator</h2>
+
+        <div class="calc-box">
+
+            <input id="profitInput" type="number" placeholder="enter profit">
+
+            <br>
+
+            <button onclick="calcTax()">calculate tax</button>
+
+            <div class="result" id="taxResult"></div>
+
+        </div>
+
+    </section>
+
+    <section class="manifesto" id="manifest">
+
+        <div class="manifesto-card">
+
+            <h2>The Manifesto</h2>
+
+            <p>
+
+                You took the risk.<br>
+                You bought the dip.<br>
+                You held through volatility.<br><br>
+
+                The market finally rewards you.
+
+            </p>
+
+            <div class="final">
+
+                Keep your profit.
+
+            </div>
+
+            <p style="margin-top:20px;font-family:monospace;color:#777">
+
+                $TAXLESS
+
+            </p>
+
+        </div>
+
+    </section>
+
+    <section class="twitter">
+
+        <h2>Join our taxless team</h2>
+
+        <p style="font-family:monospace;color:#777;margin-bottom:20px;">
+            share your gains. keep your p's.
+        </p>
+
+        <a href="https://twitter.com" class="twitter-btn">
+            FOLLOW ON X
+        </a>
+
+    </section>
+
+    <footer>
+
+        © TAXLESS
+
+    </footer>
+
+    <script>
+
+        function calcTax() {
+
+            let profit = document.getElementById("profitInput").value
+
+            if (!profit) return
+
+            document.getElementById("taxResult").innerText = "tax owed: $0"
+
+            spawnMoney()
+
+        }
+
+        function spawnMoney() {
+
+            for (let i = 0; i < 10; i++) {
+
+                const m = document.createElement("div")
+
+                m.className = "money"
+                m.innerText = "💸"
+
+                m.style.left = Math.random() * 90 + "%"
+                m.style.top = "60%"
+
+                document.body.appendChild(m)
+
+                setTimeout(() => m.remove(), 2000)
+
+            }
+
+        }
+
+        function updateMeter() {
+
+            let value = Math.floor(Math.random() * 30)
+
+            document.getElementById("taxMeter").style.width = value + "%"
+
+        }
+
+        setInterval(updateMeter, 2000)
+        updateMeter()
+
+    </script>
+
+</body>
+
+</html>
